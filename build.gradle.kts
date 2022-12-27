@@ -19,7 +19,7 @@ dependencies {
     compileOnly("org.jetbrains:annotations:23.0.0")
     compileOnly("org.projectlombok:lombok:1.18.24")
 
-    compileOnly("su.plo.voice.api:server:2.0.0-SNAPSHOT")
+    compileOnly("su.plo.voice.api:server:2.0.0+ALPHA")
     compileOnly("su.plo.config:config:1.0.0")
 
     annotationProcessor("org.projectlombok:lombok:1.18.24")
