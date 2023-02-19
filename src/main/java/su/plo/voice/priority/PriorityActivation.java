@@ -7,9 +7,10 @@ import su.plo.voice.api.event.EventPriority;
 import su.plo.voice.api.event.EventSubscribe;
 import su.plo.voice.api.server.PlasmoVoiceServer;
 import su.plo.voice.api.server.audio.capture.BaseProximityServerActivation;
+import su.plo.voice.api.server.audio.capture.ServerActivation;
 import su.plo.voice.api.server.event.audio.source.PlayerSpeakEndEvent;
 import su.plo.voice.api.server.event.audio.source.PlayerSpeakEvent;
-import su.plo.voice.api.server.player.VoicePlayer;
+import su.plo.voice.api.server.player.VoiceServerPlayer;
 import su.plo.voice.proto.packets.tcp.serverbound.PlayerAudioEndPacket;
 import su.plo.voice.proto.packets.udp.serverbound.PlayerAudioPacket;
 
@@ -17,6 +18,8 @@ public final class PriorityActivation extends BaseProximityServerActivation {
 
     private final PriorityAddon addon;
     private final PriorityConfig config;
+
+    private ServerActivation activation;
 
     public PriorityActivation(@NotNull PlasmoVoiceServer voiceServer,
                               @NotNull PriorityAddon addon) {
@@ -27,34 +30,40 @@ public final class PriorityActivation extends BaseProximityServerActivation {
     }
 
     public void register() {
-        voiceServer.getActivationManager().register(
+        ServerActivation.Builder builder = voiceServer.getActivationManager().createBuilder(
                 addon,
                 activationName,
-                "activation.plasmovoice.priority",
+                "pv.activation.priority",
                 "plasmovoice:textures/icons/microphone_priority.png",
-                ImmutableList.of(-1, config.getMaxDistance()),
-                config.getDefaultDistance(),
-                false,
-                true,
-                config.getActivationWeight()
+                "pv.activation.priority",
+                config.activationWeight()
         );
+        this.activation = builder
+                .setDistances(ImmutableList.of(-1, config.maxDistance()))
+                .setDefaultDistance(config.defaultDistance())
+                .setProximity(true)
+                .setTransitive(false)
+                .setStereoSupported(true)
+                .build();
 
         voiceServer.getSourceLineManager().register(
                 addon,
                 activationName,
-                "activation.plasmovoice.priority",
+                "pv.activation.priority",
                 "plasmovoice:textures/icons/speaker_priority.png",
-                config.getSourceLineWeight()
+                config.sourceLineWeight()
         );
     }
 
     @EventSubscribe(priority = EventPriority.HIGHEST)
     public void onPlayerSpeak(@NotNull PlayerSpeakEvent event) {
-        VoicePlayer player = event.getPlayer();
+        if (activation == null) return;
+
+        VoiceServerPlayer player = (VoiceServerPlayer) event.getPlayer();
         PlayerAudioPacket packet = event.getPacket();
 
-        if (!player.getInstance().hasPermission(getActivationPermission()) ||
-                packet.getDistance() > config.getMaxDistance() ||
+        if (!activation.checkPermissions(player) ||
+                packet.getDistance() > config.maxDistance() ||
                 packet.getDistance() <= 0
         ) return;
 
@@ -64,15 +73,17 @@ public final class PriorityActivation extends BaseProximityServerActivation {
 
     @EventSubscribe(priority = EventPriority.HIGHEST)
     public void onPlayerSpeakEnd(@NotNull PlayerSpeakEndEvent event) {
-        VoicePlayer player = event.getPlayer();
+        if (activation == null) return;
+
+        VoiceServerPlayer player = (VoiceServerPlayer) event.getPlayer();
         PlayerAudioEndPacket packet = event.getPacket();
 
-        if (!player.getInstance().hasPermission(getActivationPermission()) ||
-                packet.getDistance() > config.getMaxDistance() ||
+        if (!activation.checkPermissions(player) ||
+                packet.getDistance() > config.maxDistance() ||
                 packet.getDistance() <= 0
         ) return;
 
-        getPlayerSource(player, packet.getActivationId(), true)
+        getPlayerSource(player, packet.getActivationId(), null)
                 .ifPresent((source) -> sendAudioEndPacket(source, packet));
     }
 }
