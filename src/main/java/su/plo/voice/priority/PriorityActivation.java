@@ -8,6 +8,7 @@ import su.plo.voice.api.event.EventSubscribe;
 import su.plo.voice.api.server.PlasmoVoiceServer;
 import su.plo.voice.api.server.audio.capture.BaseProximityServerActivation;
 import su.plo.voice.api.server.audio.capture.ServerActivation;
+import su.plo.voice.api.server.audio.source.ServerPlayerSource;
 import su.plo.voice.api.server.event.audio.source.PlayerSpeakEndEvent;
 import su.plo.voice.api.server.event.audio.source.PlayerSpeakEvent;
 import su.plo.voice.api.server.player.VoiceServerPlayer;
@@ -30,9 +31,9 @@ public final class PriorityActivation extends BaseProximityServerActivation {
     }
 
     public void register() {
-        ServerActivation.Builder builder = voiceServer.getActivationManager().createBuilder(
+        ServerActivation.Builder builder = getVoiceServer().getActivationManager().createBuilder(
                 addon,
-                activationName,
+                getActivationName(),
                 "pv.activation.priority",
                 "plasmovoice:textures/icons/microphone_priority.png",
                 "pv.activation.priority",
@@ -43,12 +44,12 @@ public final class PriorityActivation extends BaseProximityServerActivation {
                 .setDefaultDistance(config.defaultDistance())
                 .setProximity(true)
                 .setTransitive(false)
-                .setStereoSupported(true)
+                .setStereoSupported(config.activationStereoSupport())
                 .build();
 
-        voiceServer.getSourceLineManager().register(
+        getVoiceServer().getSourceLineManager().register(
                 addon,
-                activationName,
+                getActivationName(),
                 "pv.activation.priority",
                 "plasmovoice:textures/icons/speaker_priority.png",
                 config.sourceLineWeight()
@@ -67,8 +68,10 @@ public final class PriorityActivation extends BaseProximityServerActivation {
                 packet.getDistance() <= 0
         ) return;
 
-        getPlayerSource(player, packet.getActivationId(), packet.isStereo())
-                .ifPresent((source) -> sendAudioPacket(player, source, packet));
+        ServerPlayerSource source = getPlayerSource(player, packet.getActivationId(), packet.isStereo());
+        if (source == null) return;
+
+        sendAudioPacket(player, source, packet);
     }
 
     @EventSubscribe(priority = EventPriority.HIGHEST)
@@ -83,7 +86,9 @@ public final class PriorityActivation extends BaseProximityServerActivation {
                 packet.getDistance() <= 0
         ) return;
 
-        getPlayerSource(player, packet.getActivationId(), null)
-                .ifPresent((source) -> sendAudioEndPacket(source, packet));
+        ServerPlayerSource source = getPlayerSource(player, packet.getActivationId(), null);
+        if (source == null) return;
+
+        sendAudioEndPacket(source, packet);
     }
 }

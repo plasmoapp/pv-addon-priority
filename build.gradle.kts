@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.google.guava:guava:31.1-jre")
+//    compileOnly("com.google.guava:guava:31.1-jre")
     compileOnly("org.jetbrains:annotations:23.0.0")
     compileOnly("org.projectlombok:lombok:1.18.24")
 

@@ -14,7 +14,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-@Addon(id = "priority", scope = AddonScope.SERVER, version = "1.0.0", authors = {"Apehum"})
+@Addon(
+        id = "priority",
+        scope = AddonScope.SERVER,
+        version = "1.0.0",
+        authors = {"Apehum"}
+)
 public final class PriorityAddon {
 
     private static final ConfigurationProvider toml = ConfigurationProvider.getProvider(TomlConfiguration.class);

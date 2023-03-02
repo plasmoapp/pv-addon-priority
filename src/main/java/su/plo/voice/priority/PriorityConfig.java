@@ -28,6 +28,9 @@ public final class PriorityConfig {
     @ConfigField(path = "sourceline_weight")
     private int sourceLineWeight = 10;
 
+    @ConfigField
+    private boolean activationStereoSupport = false;
+
     @NoArgsConstructor
     public static class DistanceValidator implements Predicate<Object> {
 
