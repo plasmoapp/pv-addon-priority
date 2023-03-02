@@ -71,7 +71,7 @@ public final class PriorityActivation extends BaseProximityServerActivation {
         ServerPlayerSource source = getPlayerSource(player, packet.getActivationId(), packet.isStereo());
         if (source == null) return;
 
-        sendAudioPacket(player, source, packet);
+        sendAudioPacket(player, source, packet, packet.getDistance());
     }
 
     @EventSubscribe(priority = EventPriority.HIGHEST)
@@ -89,6 +89,6 @@ public final class PriorityActivation extends BaseProximityServerActivation {
         ServerPlayerSource source = getPlayerSource(player, packet.getActivationId(), null);
         if (source == null) return;
 
-        sendAudioEndPacket(source, packet);
+        sendAudioEndPacket(source, packet, packet.getDistance());
     }
 }
