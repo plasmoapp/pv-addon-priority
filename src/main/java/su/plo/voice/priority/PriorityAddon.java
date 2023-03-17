@@ -46,6 +46,8 @@ public final class PriorityAddon {
             toml.save(PriorityConfig.class, config, configFile);
 
             voiceServer.getLanguages().register(
+                    "plasmo-voice-addons",
+                    "server/priority.toml",
                     this::getLanguageResource,
                     new File(addonFolder, "languages")
             );
