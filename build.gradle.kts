@@ -1,6 +1,8 @@
 plugins {
     id("java")
+    kotlin("jvm") version("1.6.10")
     id("su.plo.crowdin.plugin") version("1.0.0")
+    id("su.plo.voice.plugin") version("1.0.0")
 }
 
 group = "su.plo"

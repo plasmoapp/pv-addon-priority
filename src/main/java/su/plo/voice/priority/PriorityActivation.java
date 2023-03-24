@@ -9,10 +9,11 @@ import su.plo.voice.api.server.audio.line.ServerSourceLine;
 
 public final class PriorityActivation  {
 
+    private static final String ACTIVATION_NAME = "priority";
+
     private final PlasmoVoiceServer voiceServer;
 
     private final PriorityAddon addon;
-    private final PriorityConfig config;
 
     private ProximityServerActivationHelper proximityHelper;
 
@@ -20,19 +21,18 @@ public final class PriorityActivation  {
                               @NotNull PriorityAddon addon) {
         this.voiceServer = voiceServer;
         this.addon = addon;
-        this.config = addon.getConfig();
     }
 
     public void register() {
-        if (proximityHelper != null) {
-            voiceServer.getEventBus().unregister(this, proximityHelper);
-            voiceServer.getActivationManager().unregister(proximityHelper.getActivation());
-            voiceServer.getSourceLineManager().unregister(proximityHelper.getSourceLine());
-        }
+        PriorityConfig config = addon.getConfig();
+
+        voiceServer.getActivationManager().unregister(ACTIVATION_NAME);
+        voiceServer.getSourceLineManager().unregister(ACTIVATION_NAME);
+        if (proximityHelper != null) voiceServer.getEventBus().unregister(addon, proximityHelper);
 
         ServerActivation.Builder builder = voiceServer.getActivationManager().createBuilder(
                 addon,
-                "priority",
+                ACTIVATION_NAME,
                 "pv.activation.priority",
                 "plasmovoice:textures/icons/microphone_priority.png",
                 "pv.activation.priority",
@@ -48,7 +48,7 @@ public final class PriorityActivation  {
 
         ServerSourceLine sourceLine = voiceServer.getSourceLineManager().createBuilder(
                 addon,
-                "priority",
+                ACTIVATION_NAME,
                 "pv.activation.priority",
                 "plasmovoice:textures/icons/speaker_priority.png",
                 config.sourceLineWeight()
@@ -60,6 +60,6 @@ public final class PriorityActivation  {
                 sourceLine,
                 null
         );
-        voiceServer.getEventBus().register(addon, proximityHelper);;
+        voiceServer.getEventBus().register(addon, proximityHelper);
     }
 }
