@@ -2,6 +2,7 @@ package su.plo.voice.priority;
 
 import com.google.common.collect.ImmutableList;
 import org.jetbrains.annotations.NotNull;
+import su.plo.lib.api.server.permission.PermissionDefault;
 import su.plo.voice.api.server.PlasmoVoiceServer;
 import su.plo.voice.api.server.audio.capture.ProximityServerActivationHelper;
 import su.plo.voice.api.server.audio.capture.ServerActivation;
@@ -44,6 +45,7 @@ public final class PriorityActivation  {
                 .setProximity(true)
                 .setTransitive(false)
                 .setStereoSupported(config.activationStereoSupport())
+                .setPermissionDefault(PermissionDefault.OP)
                 .build();
 
         ServerSourceLine sourceLine = voiceServer.getSourceLineManager().createBuilder(
