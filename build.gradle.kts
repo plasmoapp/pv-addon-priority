@@ -39,10 +39,6 @@ plasmoCrowdin {
 }
 
 tasks {
-    processResources {
-        dependsOn(plasmoCrowdinDownload)
-    }
-
     java {
         toolchain.languageVersion.set(JavaLanguageVersion.of(8))
     }
