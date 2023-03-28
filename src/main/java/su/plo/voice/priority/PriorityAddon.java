@@ -47,7 +47,7 @@ public final class PriorityAddon implements AddonInitializer {
     private void loadConfig() {
         try {
             File addonFolder = new File(voiceServer.getConfigsFolder(), "pv-addon-priority");
-            File configFile = new File(addonFolder, "priority.toml");
+            File configFile = new File(addonFolder, "config.toml");
 
             this.config = toml.load(PriorityConfig.class, configFile, false);
 
