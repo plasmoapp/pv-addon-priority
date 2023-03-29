@@ -16,6 +16,10 @@
 
 Server-side [Plasmo Voice](https://modrinth.com/mod/plasmo-voice) add-on. A voice activation with configurable distance bigger that the default proximity.
 
-To use priority: Open Plasmo Voice menu `V` (by default), go to `Activation` tab and configure the `Priority` activation.
+## Usage
 
-You also need permission `pv.activation.priority`. Only available to OP by default.
+Open Plasmo Voice menu `V` (by default), go to `Activation` tab and configure the `Priority` activation.
+
+## Permissions
+
+Permission to use priority: `pv.activation.priority`. Only available to OP by default.
