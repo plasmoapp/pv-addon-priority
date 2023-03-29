@@ -1,4 +1,4 @@
-![](https://imgur.com/DdvYD01.png)
+![](https://i.imgur.com/QhULmGB.png)
 
 <div>
     <a href="https://modrinth.com/mod/plasmo-voice">Plasmo Voice</a>
@@ -14,12 +14,4 @@
 
 # pv-addon-priority
 
-Server-side [Plasmo Voice](https://modrinth.com/mod/plasmo-voice) add-on. A voice activation with configurable distance bigger that the default proximity.
-
-## Usage
-
-Open Plasmo Voice menu `V` (by default), go to `Activation` tab and configure the `Priority` activation.
-
-## Permissions
-
-Permission to use priority: `pv.activation.priority`. Only available to OP by default.
+With this addon warder and skulk sensors are triggered by proximity voice chat.
