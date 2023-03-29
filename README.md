@@ -14,7 +14,9 @@
 
 # pv-addon-priority
 
-Server-side [Plasmo Voice](https://modrinth.com/mod/plasmo-voice) add-on. A voice activation with configurable distance bigger that the default proximity.
+Server-side [Plasmo Voice](https://modrinth.com/mod/plasmo-voice) add-on.
+
+Voice activation with a greater and configurable distance.
 
 ## Usage
 
