@@ -2,13 +2,13 @@ package su.plo.voice.priority;
 
 import com.google.common.collect.ImmutableList;
 import org.jetbrains.annotations.NotNull;
-import su.plo.lib.api.server.permission.PermissionDefault;
+import su.plo.slib.api.permission.PermissionDefault;
 import su.plo.voice.api.server.PlasmoVoiceServer;
 import su.plo.voice.api.server.audio.capture.ProximityServerActivationHelper;
 import su.plo.voice.api.server.audio.capture.ServerActivation;
 import su.plo.voice.api.server.audio.line.ServerSourceLine;
 
-public final class PriorityActivation  {
+public final class PriorityActivation {
 
     private static final String ACTIVATION_NAME = "priority";
 
