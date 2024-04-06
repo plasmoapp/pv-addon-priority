@@ -1,17 +1,13 @@
 plugins {
     id("java")
-    kotlin("jvm") version("1.8.22")
-    id("su.plo.crowdin.plugin") version("1.0.2-SNAPSHOT")
-    id("su.plo.voice.plugin.entrypoints") version("1.0.2-SNAPSHOT")
+    kotlin("jvm") version(libs.versions.kotlin.get())
+    alias(libs.plugins.crowdin)
+    alias(libs.plugins.pv.entrypoints)
 }
 
-group = "su.plo"
-version = "1.1.0"
-
 dependencies {
-    compileOnly("su.plo.voice.api:server:2.1.0-SNAPSHOT")
-
-    annotationProcessor("org.projectlombok:lombok:1.18.24")
+    compileOnly(libs.pv)
+    annotationProcessor(libs.lombok)
 }
 
 repositories {
