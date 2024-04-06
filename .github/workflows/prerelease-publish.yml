@@ -35,3 +35,4 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         github-generate-changelog: true
         github-prerelease: true
+        changelog-file: changelog.md
