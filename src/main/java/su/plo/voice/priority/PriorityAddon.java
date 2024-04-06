@@ -19,7 +19,7 @@ import java.io.InputStream;
 @Addon(
         id = "pv-addon-priority",
         scope = AddonLoaderScope.SERVER,
-        version = "1.1.0",
+        version = BuildConstants.VERSION,
         authors = {"Apehum"}
 )
 public final class PriorityAddon implements AddonInitializer {

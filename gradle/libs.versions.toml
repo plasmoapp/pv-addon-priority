@@ -15,3 +15,4 @@ pv = { module = "su.plo.voice.api:server", version.ref = "pv" }
 [plugins]
 crowdin = { id = "su.plo.crowdin.plugin", version.ref = "crowdin" }
 pv-entrypoints = { id = "su.plo.voice.plugin.entrypoints", version.ref = "pv-gradle-plugin" }
+pv-java-templates = { id = "su.plo.voice.plugin.java-templates", version.ref = "pv-gradle-plugin" }
