@@ -14,6 +14,7 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven("https://repo.plasmoverse.com/snapshots")
+    maven("https://repo.plasmoverse.com/releases")
 }
 
 crowdin {
